@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #0f1521;
+  --bg-surface: #161d2b;
+  --bg-elevated: #1c2436;
+  --text-primary: #edeef0;
+  --text-secondary: #8b93a7;
+  --text-faint: #5f6b82;
+  --accent-brass: #d9a441;
+  --accent-data: #5ec8d8;
+  --line: #232c3e;
+  --line-strong: #2a3345;
+  --ok: #6fcf8e;
+  --grid: rgba(139, 147, 167, 0.045);
+  --glow: rgba(217, 164, 65, 0.07);
+  --panel-shadow: none;
+}
+
+[data-theme="light"] {
+  --bg-primary: #f2eddf;
+  --bg-surface: #fbf8ef;
+  --bg-elevated: #e9e2cd;
+  --text-primary: #232a3a;
+  --text-secondary: #52607e;
+  --text-faint: #8a92a6;
+  --accent-brass: #96690f;
+  --accent-data: #0c7086;
+  --line: #ddd3bc;
+  --line-strong: #c8bc9f;
+  --ok: #257a44;
+  --grid: rgba(35, 42, 58, 0.055);
+  --glow: rgba(150, 105, 15, 0.075);
+  --panel-shadow: 0 1px 3px rgba(35, 42, 58, 0.08), 0 4px 14px rgba(35, 42, 58, 0.05);
+}
+
+@theme inline {
+  --color-base: var(--bg-primary);
+  --color-panel: var(--bg-surface);
+  --color-elevated: var(--bg-elevated);
+  --color-fg: var(--text-primary);
+  --color-fg2: var(--text-secondary);
+  --color-faint: var(--text-faint);
+  --color-brass: var(--accent-brass);
+  --color-data: var(--accent-data);
+  --color-ok: var(--ok);
+  --color-line: var(--line);
+  --color-line2: var(--line-strong);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --font-display: var(--font-fraunces), ui-serif, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  background-image:
+    radial-gradient(ellipse 85% 55% at 50% -12%, var(--glow), transparent 70%),
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    44px 44px,
+    44px 44px;
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* elevate cards off the paper in light mode; --panel-shadow is none in dark.
+   Attribute match so opacity variants (bg-panel/95, /60) are covered too. */
+[class*="bg-panel"] {
+  box-shadow: var(--panel-shadow);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent-brass) 35%, transparent);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-data);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.blink-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.1em;
+  background: var(--text-primary);
+  vertical-align: text-bottom;
+  animation: blink 1.06s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+html.lenis {
+  scroll-behavior: auto;
+}
+
+.dash-anim {
+  animation: dashmove 1.3s linear infinite;
+}
+
+@keyframes dashmove {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.pulse-dot {
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
